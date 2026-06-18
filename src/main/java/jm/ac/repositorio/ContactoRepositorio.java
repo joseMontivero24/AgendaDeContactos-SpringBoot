@@ -1,4 +1,4 @@
-package jm.ac.repositoio;
+package jm.ac.repositorio;
 
 import jm.ac.modelo.Contacto;
 import org.springframework.data.jpa.repository.JpaRepository;
