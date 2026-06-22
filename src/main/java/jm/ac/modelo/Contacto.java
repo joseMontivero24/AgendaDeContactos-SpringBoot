@@ -21,6 +21,4 @@ public class Contacto {
     private String telefono;
     private String email;
     private String direccion;
-
 }
-// VIDEO 391
