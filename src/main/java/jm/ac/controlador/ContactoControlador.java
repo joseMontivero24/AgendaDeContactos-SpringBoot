@@ -43,4 +43,39 @@ public class ContactoControlador {
         return ResponseEntity.ok(contacto);
     }
 
+    //Actualizar
+    @PutMapping("/contactos/{id}")
+    public ResponseEntity<Contacto> actualizarContacto( @PathVariable Integer id, @RequestBody Contacto contactoActualizado) {
+
+        Contacto contactoExistente = contactoServicio.buscarContactoPorId(id);
+
+        if (contactoExistente == null) {
+            throw new RecursoNoEncontradoExepcion(
+                    "No se encontró el contacto con ID: " + id
+            );
+        }
+
+        contactoExistente.setNombre(contactoActualizado.getNombre());
+        contactoExistente.setApellido(contactoActualizado.getApellido());
+        contactoExistente.setTelefono(contactoActualizado.getTelefono());
+        contactoExistente.setEmail(contactoActualizado.getEmail());
+        contactoExistente.setDireccion(contactoActualizado.getDireccion());
+
+        Contacto contactoGuardado =
+                contactoServicio.guardarContacto(contactoExistente);
+
+        return ResponseEntity.ok(contactoGuardado);
+    }
+    @DeleteMapping("/contactos/{id}")
+    public  ResponseEntity<Void> eliminarContacto(@PathVariable Integer id){
+        Contacto contactoExistente = contactoServicio.buscarContactoPorId(id);
+        if (contactoExistente == null) {
+            throw new RecursoNoEncontradoExepcion(
+                    "No se encontro el contacto con ID: " + id
+            );
+        }
+        contactoServicio.eliminarContacto(contactoExistente);
+        return ResponseEntity.noContent().build();
+    }
+
 }
